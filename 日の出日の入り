@@ -1,0 +1,106 @@
+openapi: 3.1.0
+info:
+  title: Sun and Moon Rise/Set Calculator API
+  description: OpenAPI specification for API calculating sunrise, sunset, moonrise, and moonset times
+  version: 1.0.0
+servers:
+  - url: https://labs.bitmeister.jp/ohakon/json
+paths:
+  /:
+    get:
+      summary: Calculate sunrise, sunset, moonrise, and moonset times
+      operationId: calculateSunMoonRiseSet
+      parameters:
+        - name: mode
+          in: query
+          required: true
+          description: Mode of calculation (sun_moon_rise_set)
+          schema:
+            type: string
+            default: sun_moon_rise_set
+            enum:
+              - sun_moon_rise_set
+        - name: year
+          in: query
+          required: true
+          description: Year for calculation
+          schema:
+            type: string
+        - name: month
+          in: query
+          required: true
+          description: Month for calculation
+          schema:
+            type: string
+        - name: day
+          in: query
+          required: true
+          description: Day for calculation
+          schema:
+            type: string
+        - name: lat
+          in: query
+          required: true
+          description: Latitude for location
+          schema:
+            type: string
+        - name: lng
+          in: query
+          required: true
+          description: Longitude for location
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with sunrise, sunset, moonrise, and moonset times
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiseSetResult'
+components:
+  schemas:
+    RiseSetResult:
+      type: object
+      properties:
+        date:
+          type: object
+          properties:
+            day:
+              type: string
+            month:
+              type: string
+            year:
+              type: string
+        location:
+          type: object
+          properties:
+            coordinate:
+              type: object
+              properties:
+                lat:
+                  type: string
+                lng:
+                  type: string
+        moon_age:
+          type: number
+        rise_and_set:
+          type: object
+          properties:
+            moonrise:
+              type: number
+            moonrise_hm:
+              type: string
+            moonset:
+              type: number
+            moonset_hm:
+              type: string
+            sunrise:
+              type: number
+            sunrise_hm:
+              type: string
+            sunset:
+              type: number
+            sunset_hm:
+              type: string
+        version:
+          type: string

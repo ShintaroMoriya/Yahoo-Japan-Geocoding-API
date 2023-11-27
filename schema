@@ -1,0 +1,117 @@
+openapi: 3.1.0
+info:
+  title: Yahoo Japan Geocoding API
+  description: OpenAPI specification for Yahoo Japan Geocoding API
+  version: 1.0.0
+servers:
+  - url: https://map.yahooapis.jp/geocode/V1
+paths:
+  /geoCoder:
+    get:
+      summary: Retrieve geocoding information
+      operationId: getGeoCoder
+      parameters:
+        - name: appid
+          in: query
+          required: true
+          description: "dj00aiZpPUp1bElRNmFtZW40WiZzPWNvbnN1bWVyc2VjcmV0Jng9MDc-"
+          schema:
+            type: string
+        - name: query
+          in: query
+          required: true
+          description: Address query string
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GeoCoderResponse'
+components:
+  schemas:
+    GeoCoderResponse:
+      type: object
+      properties:
+        YDF:
+          type: object
+          properties:
+            totalResultsReturned:
+              type: integer
+            totalResultsAvailable:
+              type: integer
+            firstResultPosition:
+              type: integer
+            ResultInfo:
+              $ref: '#/components/schemas/ResultInfo'
+            Feature:
+              $ref: '#/components/schemas/Feature'
+    ResultInfo:
+      type: object
+      properties:
+        Count:
+          type: integer
+        Total:
+          type: integer
+        Start:
+          type: integer
+        Status:
+          type: integer
+        Description:
+          type: string
+        Latency:
+          type: number
+    Feature:
+      type: object
+      properties:
+        Id:
+          type: string
+        Gid:
+          type: string
+        Name:
+          type: string
+        Geometry:
+          $ref: '#/components/schemas/Geometry'
+        Category:
+          type: string
+        Description:
+          type: string
+        Style:
+          type: string
+        Property:
+          $ref: '#/components/schemas/Property'
+    Geometry:
+      type: object
+      properties:
+        Type:
+          type: string
+        Coordinates:
+          type: string
+        BoundingBox:
+          type: string
+    Property:
+      type: object
+      properties:
+        Uid:
+          type: string
+        CassetteId:
+          type: string
+        Yomi:
+          type: string
+        Country:
+          $ref: '#/components/schemas/Country'
+        Address:
+          type: string
+        GovernmentCode:
+          type: string
+        AddressMatchingLevel:
+          type: integer
+    Country:
+      type: object
+      properties:
+        Code:
+          type: string
+        Name:
+          type: string

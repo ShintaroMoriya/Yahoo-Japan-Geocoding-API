@@ -14,7 +14,7 @@ paths:
         - name: appid
           in: query
           required: true
-          description: "dj00aiZpPUp1bElRNmFtZW40WiZzPWNvbnN1bWVyc2VjcmV0Jng9MDc-"
+          description: "クライアントID"
           schema:
             type: string
         - name: query
